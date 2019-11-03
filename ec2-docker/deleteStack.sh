@@ -1,3 +1,5 @@
 #!/bin/bash
 
-aws cloudformation delete-stack --region us-east-1 --stack-name ec2-docker --template-body file://template.yaml
+. ../common/constants.sh
+
+aws cloudformation delete-stack --region $REGION --stack-name ec2-docker

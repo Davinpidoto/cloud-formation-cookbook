@@ -1,3 +1,7 @@
+Parameters:
+  KeyName:
+    Type: String
+
 Mappings:
   RegionMap:
     us-east-1:
@@ -42,6 +46,23 @@ Resources:
       Tags:
         - Key: "Name"
           Value: "Docker"
+      KeyName: !Ref KeyName
+      SecurityGroups:
+        - !Ref InstanceSecurityGroup
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
 
 Outputs:
   WebApp:
