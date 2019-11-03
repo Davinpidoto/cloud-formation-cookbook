@@ -49,6 +49,12 @@ Resources:
       KeyName: !Ref KeyName
       SecurityGroups:
         - !Ref InstanceSecurityGroup
+      UserData: !Base64 |
+        #!/bin/bash
+        sudo yum update -y
+        sudo amazon-linux-extras install docker
+        sudo service docker start
+        sudo usermod -a -G docker ec2-user
 
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
